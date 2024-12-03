@@ -11,6 +11,9 @@ combinedPattern = r'mul\(\d{1,3},\d{1,3}\)|do\(\)|don\'t\(\)'
 
 numPattern = r'\d{1,3}'
 
+def find_matches_p1() -> list[str]: # original code for part one
+    return [match for line in read_lines() for match in re.findall(mulPattern, line)]
+
 def find_matches() -> list[str]:
     return [match.group(0) for line in read_lines() for match in re.finditer(combinedPattern, line)]
 
@@ -31,7 +34,12 @@ def apply_mul(mul: str) -> int:
     (a,b) = re.findall(numPattern, mul)
     return int(a) * int(b)
 
+def apply_all_p1() -> int: # original code for part one
+    return sum(map(apply_mul, find_matches_p1()))
+
 def apply_all() -> int:
     return sum(map(apply_mul, find_valid()))
 
-print(apply_all())
+
+print(f"Day three part one: {apply_all_p1()}")
+print(f"Day three part two: {apply_all()}")
